@@ -1,0 +1,92 @@
+// frontend/src/components/WordList.tsx
+import React, { useEffect, useState } from 'react';
+
+const WordList: React.FC = () => {
+    const [words, setWords] = useState<{ _id: string; frenchWord: string; englishWord: string }[]>([]);
+    const [editingWord, setEditingWord] = useState<{ _id: string; frenchWord: string; englishWord: string } | null>(null);
+    const [frenchWord, setFrenchWord] = useState('');
+    const [englishWord, setEnglishWord] = useState('');
+
+    useEffect(() => {
+        fetch('http://localhost:5000/api/words')
+            .then((response) => response.json())
+            .then((data) => setWords(data))
+            .catch((error) => console.error('Erreur:', error));
+    }, []);
+
+    const handleEdit = (word: { _id: string; frenchWord: string; englishWord: string }) => {
+        setEditingWord(word);
+        setFrenchWord(word.frenchWord);
+        setEnglishWord(word.englishWord);
+    };
+
+    const handleUpdate = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (editingWord) {
+            fetch(`http://localhost:5000/api/words/update/${editingWord._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ frenchWord, englishWord }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    setWords(words.map(word => (word._id === data._id ? data : word)));
+                    setEditingWord(null);
+                    setFrenchWord('');
+                    setEnglishWord('');
+                })
+                .catch((error) => console.error('Erreur:', error));
+        }
+    };
+
+    const handleDelete = (id: string) => {
+        fetch(`http://localhost:5000/api/words/delete/${id}`, {
+            method: 'DELETE',
+        })
+            .then(() => {
+                setWords(words.filter(word => word._id !== id));
+            })
+            .catch((error) => console.error('Erreur:', error));
+    };
+
+    return (
+        <div>
+            <h1>Liste de Mots</h1>
+            <ul>
+                {words.map((word) => (
+                    <li key={word._id}>
+                        {word.frenchWord} - {word.englishWord}
+                        <button onClick={() => handleEdit(word)}>Modifier</button>
+                        <button onClick={() => handleDelete(word._id)}>Supprimer</button>
+                    </li>
+                ))}
+            </ul>
+
+            {editingWord && (
+                <form onSubmit={handleUpdate}>
+                    <h2>Modifier le Mot</h2>
+                    <input
+                        type="text"
+                        placeholder="Mot en français"
+                        value={frenchWord}
+                        onChange={(e) => setFrenchWord(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="text"
+                        placeholder="Mot en anglais"
+                        value={englishWord}
+                        onChange={(e) => setEnglishWord(e.target.value)}
+                        required
+                    />
+                    <button type="submit">Mettre à Jour</button>
+                    <button onClick={() => setEditingWord(null)}>Annuler</button>
+                </form>
+            )}
+        </div>
+    );
+};
+
+export default WordList;
