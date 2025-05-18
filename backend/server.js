@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const wordRoutes = require('./routes/wordRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 dotenv.config();
 
@@ -14,6 +15,8 @@ app.use(express.json());
 connectDB();
 
 app.use('/api/words', wordRoutes); // Route API
+app.use('/api/users', userRoutes); // Routes pour les utilisateurs
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
