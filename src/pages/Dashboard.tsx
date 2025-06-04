@@ -8,9 +8,22 @@ const Dashboard: React.FC = () => {
     const [knownWordsCount, setKnownWordsCount] = useState(0);
 
     useEffect(() => {
+        const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur
+
         // Récupérer le nombre de mots dans le dictionnaire
-        fetch('http://localhost:5000/api/words')
-            .then((response) => response.json())
+        fetch('http://localhost:5000/api/words', {
+            method: 'GET',
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : '', // Ajouter le token dans l'en-tête
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la récupération des mots');
+                }
+                return response.json();
+            })
             .then((data) => setWordCount(data.length))
             .catch((error) => console.error('Erreur:', error));
 
@@ -33,3 +46,4 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+

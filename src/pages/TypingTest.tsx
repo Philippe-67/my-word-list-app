@@ -8,11 +8,24 @@ const TypingTest: React.FC = () => {
     const [result, setResult] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/words')
-            .then((response) => response.json())
+        const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur
+
+        fetch('http://localhost:5000/api/words', {
+            method: 'GET',
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : '', // Ajouter le token dans l'en-tête
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la récupération des mots');
+                }
+                return response.json();
+            })
             .then((data) => {
                 setWords(data);
-                setNewWord(data);
+                setNewWord(data); // Appeler setNewWord pour définir le mot actuel
             })
             .catch((error) => console.error('Erreur:', error));
     }, []);

@@ -10,11 +10,13 @@ const AddUserForm: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         const newUser = { username, password, email };
+        const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur
 
         fetch('http://localhost:5000/api/users/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': token ? `Bearer ${token}` : '', // Ajouter le token dans l'en-tête
             },
             body: JSON.stringify(newUser),
         })
@@ -25,7 +27,7 @@ const AddUserForm: React.FC = () => {
                 return response.json();
             })
             .then((data) => {
-                setMessage(`Utilisateur ajouté : ${data.username}`);
+                setMessage(`Utilisateur ajouté : ${data.user.username}`);
                 // Réinitialiser les champs du formulaire
                 setUsername('');
                 setPassword('');
@@ -61,7 +63,7 @@ const AddUserForm: React.FC = () => {
                 required
             />
             <button type="submit">Ajouter l'utilisateur</button>
-            {message && <p>{message}</p>}
+            {message && <p>{message}</p>} {/* Afficher un message de retour */}
         </form>
     );
 };

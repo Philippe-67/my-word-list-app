@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const {
     addWord,
-    getAllWords,
+    getUserWords,
     updateWord,
     deleteWord,
 } = require('../controllers/wordController');
@@ -12,7 +12,7 @@ const {
 router.post('/add', addWord);
 
 // Route pour récupérer tous les mots
-router.get('/', getAllWords);
+router.get('/', getUserWords,);
 
 // Route pour mettre à jour un mot
 router.put('/update/:id', updateWord);

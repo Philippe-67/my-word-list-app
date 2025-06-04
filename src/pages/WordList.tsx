@@ -1,4 +1,4 @@
-// frontend/src/components/WordList.tsx
+// frontend/src/pages/WordList.tsx
 import React, { useEffect, useState } from 'react';
 
 const WordList: React.FC = () => {
@@ -8,29 +8,48 @@ const WordList: React.FC = () => {
     const [englishWord, setEnglishWord] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/words')
-            .then((response) => response.json())
+         const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
+         fetch('http://localhost:5000/api/words', {
+            method: 'GET',
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : '',
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la récupération des mots');
+                }
+                return response.json();
+            })
             .then((data) => setWords(data))
             .catch((error) => console.error('Erreur:', error));
     }, []);
-
-    const handleEdit = (word: { _id: string; frenchWord: string; englishWord: string }) => {
+     const handleEdit = (word: { _id: string; frenchWord: string; englishWord: string }) => {
         setEditingWord(word);
         setFrenchWord(word.frenchWord);
         setEnglishWord(word.englishWord);
     };
 
-    const handleUpdate = (e: React.FormEvent) => {
+      const handleUpdate = (e: React.FormEvent) => {
         e.preventDefault();
         if (editingWord) {
+            const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
+
             fetch(`http://localhost:5000/api/words/update/${editingWord._id}`, {
                 method: 'PUT',
                 headers: {
+                    'Authorization': token ? `Bearer ${token}` : '',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ frenchWord, englishWord }),
             })
-                .then((response) => response.json())
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors de la mise à jour du mot');
+                    }
+                    return response.json();
+                })
                 .then((data) => {
                     setWords(words.map(word => (word._id === data._id ? data : word)));
                     setEditingWord(null);
@@ -41,9 +60,15 @@ const WordList: React.FC = () => {
         }
     };
 
+  
     const handleDelete = (id: string) => {
+        const token=localStorage.getItem('token');
         fetch(`http://localhost:5000/api/words/delete/${id}`, {
             method: 'DELETE',
+         headers: {
+                'Authorization': token ? `Bearer ${token}` : '',
+                'Content-Type': 'application/json',
+            },
         })
             .then(() => {
                 setWords(words.filter(word => word._id !== id));

@@ -1,4 +1,4 @@
-// frontend/src/components/Quiz.tsx
+// // frontend/src/pages/Quiz.tsx
 import React, { useEffect, useState } from 'react';
 
 const Quiz: React.FC = () => {
@@ -8,8 +8,22 @@ const Quiz: React.FC = () => {
     const [score, setScore] = useState(0);
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/words')
-            .then((response) => response.json())
+        const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur
+
+        // Récupérer les mots pour générer le quiz
+        fetch('http://localhost:5000/api/words', {
+            method: 'GET',
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : '', // Ajouter le token dans l'en-tête
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la récupération des mots');
+                }
+                return response.json();
+            })
             .then((data) => {
                 setWords(data);
                 generateQuiz(data);

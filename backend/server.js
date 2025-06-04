@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const wordRoutes = require('./routes/wordRoutes');
 const userRoutes = require('./routes/userRoutes');
+const auth = require('./middleware/auth'); 
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ app.use(express.json());
 
 connectDB();
 
-app.use('/api/words', wordRoutes); // Route API
+app.use('/api/words',auth, wordRoutes); // Route API
 app.use('/api/users', userRoutes); // Routes pour les utilisateurs
 
 
