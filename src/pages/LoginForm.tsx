@@ -64,12 +64,15 @@
 
 
 import React, { useState } from 'react';
-//import AddWordForm from './AddWordForm';
+import isLogin from '../utils/Utils';
+import AddWordForm from './AddWordForm';
 
 const LoginForm: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const[token,setToken]=useState<string|null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -89,13 +92,27 @@ const LoginForm: React.FC = () => {
             }
 
             const data = await response.json();
+             
             // Stocker le token dans le localStorage
             localStorage.setItem('token', data.token);
-            localStorage.setItem('username', data.user.username);
-            setMessage(`Bonjour : ${data.user.username}`);
+            setToken(data.token);
+            // localStorage.setItem('username', data.user.username)
+            console.log("voici les infos du user:",data.token, data.user.username)
+            setToken(data.token);
+            setMessage(`Bonjour : ${data.user.username},jai bien ton token":${data.token}`);
+
             // Réinitialiser les champs du formulaire
             setEmail('');
             setPassword('');
+            setIsAuthenticated(true);
+        //     if (isLogin()) {
+        //         console.log("L'utilisateur est connecté.");
+                
+        //     } else {
+        //         console.log("L'utilisateur n'est pas connecté.");
+        //     }
+             
+        //    ;
         } catch (error) {
             if (error instanceof Error) {
                 setMessage(error.message); // Type d'erreur sécurisé
@@ -104,6 +121,11 @@ const LoginForm: React.FC = () => {
             }
         }
     };
+    // Afficher AddWordForm si l'utilisateur est connecté
+    if (isAuthenticated) {
+        return <AddWordForm token={token!} />; // Passer le token en tant que prop
+    }
+
 
     return (
         <form onSubmit={handleSubmit}>
@@ -130,4 +152,8 @@ const LoginForm: React.FC = () => {
 };
 
 export default LoginForm;
+
+
+
+
 

@@ -50,43 +50,49 @@
 // export default AddWordForm;
 
 // frontend/src/components/AddWordForm.tsx
+
+
 import React, { useState } from 'react';
 
-const AddWordForm: React.FC = () => {
+interface AddWordFormProps {
+    token: string; // Prop pour le token
+}
+
+const AddWordForm: React.FC<AddWordFormProps> = ({ token }) => {
     const [frenchWord, setFrenchWord] = useState('');
     const [englishWord, setEnglishWord] = useState('');
     const [message, setMessage] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const newWord = { frenchWord, englishWord };
-        const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur
 
-        fetch('http://localhost:5000/api/words/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token ? `Bearer ${token}` : '', // Ajouter le token dans l'en-tête
-            },
-            body: JSON.stringify(newWord),
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Erreur lors de l\'ajout du mot');
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log('Mot ajouté:', data);
-                setMessage('Mot ajouté avec succès');
-                // Réinitialiser le formulaire
-                setFrenchWord('');
-                setEnglishWord('');
-            })
-            .catch((error) => {
-                setMessage(error.message);
-                console.error('Erreur:', error);
+        console.log('voici le token récupéré:', token); // Cela devrait afficher le token correct
+
+        try {
+            const response = await fetch('http://localhost:5000/api/words/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`, // Ajouter le token dans l'en-tête
+                },
+                body: JSON.stringify(newWord),
             });
+
+            if (!response.ok) {
+                throw new Error('Erreur lors de l\'ajout du mot');
+            }
+
+            const data = await response.json();
+            console.log('Mot ajouté:', data);
+            setMessage('Mot ajouté avec succès');
+            // Réinitialiser le formulaire
+            setFrenchWord('');
+            setEnglishWord('');
+        } catch (error) {
+            setMessage('Une erreur est survenue lors de l\'ajout du mot.'); // Message d'erreur convivial
+            console.error('Erreur:', error);
+        }
     };
 
     return (

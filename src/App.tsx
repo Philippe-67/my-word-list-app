@@ -172,19 +172,25 @@ const App = () => {
         <Router>
             <Header />
             <Routes>
-                 <Route path="/" element={<LoginForm />} /> {/* Notez le changement ici */}
-                <Route path="/login" element={<LoginForm />} />
-                <Route path="/register" element={<AddUserForm />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/add-word" element={<AddWordForm />} />
-                <Route path="/word-list" element={<WordList />} />
-                <Route path="/quiz" element={<Quiz />} />
-                <Route path="/typing-test" element={<TypingTest />} />
+                 <Route path="/login" element={<LoginForm />} />
+                 <Route path="/add-word" element={<AddWordForm token={''} />}/>
             </Routes>
             <Footer />
-            
         </Router>
     );
 };
+                {/* <Route path="/" element={<LoginForm />} /> Notez le changement ici
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/register" element={<AddUserForm />} /> */}
+                {/* <Route path="/dashboard" element={<Dashboard />} />
+                // <Route path="/add-word" element={<AddWordForm />} />
+                <Route path="/word-list" element={<WordList />} />
+                <Route path="/quiz" element={<Quiz />} />
+                <Route path="/typing-test" element={<TypingTest />} /> */}
+            
+            
+//         </Router>
+//     );
+// };
 
 export default App;
