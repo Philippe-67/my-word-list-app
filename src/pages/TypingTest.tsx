@@ -1,7 +1,12 @@
 // frontend/src/components/TypingTest.tsx
 import React, { useEffect, useState } from 'react';
+import Header from '../components/Header';
+interface TypingTestProps {
+    token: string; // Prop pour le token
+}
 
-const TypingTest: React.FC = () => {
+
+const TypingTest: React.FC<TypingTestProps> = ({ token }) => {
     const [words, setWords] = useState<{ _id: string; frenchWord: string; englishWord: string }[]>([]);
     const [currentWord, setCurrentWord] = useState<{ frenchWord: string; englishWord: string } | null>(null);
     const [userAnswer, setUserAnswer] = useState('');
@@ -13,7 +18,7 @@ const TypingTest: React.FC = () => {
         fetch('http://localhost:5000/api/words', {
             method: 'GET',
             headers: {
-                'Authorization': token ? `Bearer ${token}` : '', // Ajouter le token dans l'en-tête
+                'Authorization':  `Bearer ${token}` , // Ajouter le token dans l'en-tête
                 'Content-Type': 'application/json',
             },
         })
@@ -28,7 +33,7 @@ const TypingTest: React.FC = () => {
                 setNewWord(data); // Appeler setNewWord pour définir le mot actuel
             })
             .catch((error) => console.error('Erreur:', error));
-    }, []);
+    }, [token]);
 
     const setNewWord = (data: { _id: string; frenchWord: string; englishWord: string }[]) => {
         const randomWord = data[Math.floor(Math.random() * data.length)];
@@ -48,7 +53,7 @@ const TypingTest: React.FC = () => {
     };
 
     return (
-        <div>
+        <><Header /><div>
             <h1>Test de Saisie</h1>
             {currentWord && (
                 <div>
@@ -59,14 +64,13 @@ const TypingTest: React.FC = () => {
                             value={userAnswer}
                             onChange={(e) => setUserAnswer(e.target.value)}
                             placeholder="Entrez la traduction en anglais"
-                            required
-                        />
+                            required />
                         <button type="submit">Vérifier</button>
                     </form>
                     {result && <p>{result}</p>}
                 </div>
             )}
-        </div>
+        </div></>
     );
 };
 

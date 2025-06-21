@@ -1,7 +1,10 @@
 // frontend/src/pages/WordList.tsx
 import React, { useEffect, useState } from 'react';
-
-const WordList: React.FC = () => {
+import Header from '../components/Header';
+interface WordListProps {
+    token: string; // Prop pour le token
+}
+const WordList: React.FC<WordListProps> = ({ token }) => {
     const [words, setWords] = useState<{ _id: string; frenchWord: string; englishWord: string }[]>([]);
     const [editingWord, setEditingWord] = useState<{ _id: string; frenchWord: string; englishWord: string } | null>(null);
     const [frenchWord, setFrenchWord] = useState('');
@@ -12,8 +15,9 @@ const WordList: React.FC = () => {
          fetch('http://localhost:5000/api/words', {
             method: 'GET',
             headers: {
-                'Authorization': token ? `Bearer ${token}` : '',
+                
                 'Content-Type': 'application/json',
+                'Authorization':  `Bearer ${token}` ,
             },
         })
             .then((response) => {
@@ -24,7 +28,7 @@ const WordList: React.FC = () => {
             })
             .then((data) => setWords(data))
             .catch((error) => console.error('Erreur:', error));
-    }, []);
+    }, [token]);
      const handleEdit = (word: { _id: string; frenchWord: string; englishWord: string }) => {
         setEditingWord(word);
         setFrenchWord(word.frenchWord);
@@ -39,7 +43,7 @@ const WordList: React.FC = () => {
             fetch(`http://localhost:5000/api/words/update/${editingWord._id}`, {
                 method: 'PUT',
                 headers: {
-                    'Authorization': token ? `Bearer ${token}` : '',
+                    'Authorization':  `Bearer ${token}` ,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ frenchWord, englishWord }),
@@ -66,7 +70,7 @@ const WordList: React.FC = () => {
         fetch(`http://localhost:5000/api/words/delete/${id}`, {
             method: 'DELETE',
          headers: {
-                'Authorization': token ? `Bearer ${token}` : '',
+                'Authorization':`Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
         })
@@ -77,7 +81,7 @@ const WordList: React.FC = () => {
     };
 
     return (
-        <div>
+        <><Header /><div>
             <h1>Liste de Mots</h1>
             <ul>
                 {words.map((word) => (
@@ -97,20 +101,18 @@ const WordList: React.FC = () => {
                         placeholder="Mot en français"
                         value={frenchWord}
                         onChange={(e) => setFrenchWord(e.target.value)}
-                        required
-                    />
+                        required />
                     <input
                         type="text"
                         placeholder="Mot en anglais"
                         value={englishWord}
                         onChange={(e) => setEnglishWord(e.target.value)}
-                        required
-                    />
+                        required />
                     <button type="submit">Mettre à Jour</button>
                     <button onClick={() => setEditingWord(null)}>Annuler</button>
                 </form>
             )}
-        </div>
+        </div></>
     );
 };
 

@@ -12,7 +12,7 @@ const AddUserForm: React.FC = () => {
         const newUser = { username, password, email };
         const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur
 
-        fetch('http://localhost:5000/api/users/add', {
+        fetch('http://localhost:5000/api/users/add-user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ const AddUserForm: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Ajouter un Utilisateur</h2>
+            <h3>inscription</h3>
             <input
                 type="text"
                 placeholder="Nom d'utilisateur"

@@ -4,7 +4,7 @@ const router = express.Router();
 const { addUser, loginUser } = require('../controllers/userController');
 
 // Route pour ajouter un utilisateur
-router.post('/add', addUser);
+router.post('/add-user', addUser);
 // Route pour connecter un utilisateur
 router.post('/login', loginUser);
 

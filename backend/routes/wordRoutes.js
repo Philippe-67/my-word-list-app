@@ -9,7 +9,7 @@ const {
 } = require('../controllers/wordController');
 
 // Route pour ajouter un mot
-router.post('/add', addWord);
+router.post('/add-word', addWord);
 
 // Route pour récupérer tous les mots
 router.get('/', getUserWords,);

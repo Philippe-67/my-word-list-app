@@ -1,21 +1,28 @@
 // // frontend/src/pages/Quiz.tsx
 import React, { useEffect, useState } from 'react';
+import Header from '../components/Header';
 
-const Quiz: React.FC = () => {
+
+interface QuizProps {
+    token: string; // Prop pour le token
+}
+
+
+const Quiz: React.FC<QuizProps> = ({ token }) => {
     const [, setWords] = useState<{ _id: string; frenchWord: string; englishWord: string }[]>([]);
     const [quiz, setQuiz] = useState<{ frenchWord: string; correctAnswer: string; options: string[] }[]>([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [score, setScore] = useState(0);
 
-    useEffect(() => {
-        const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur
+     useEffect(() => {
+      //   const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur
 
         // Récupérer les mots pour générer le quiz
         fetch('http://localhost:5000/api/words', {
             method: 'GET',
             headers: {
-                'Authorization': token ? `Bearer ${token}` : '', // Ajouter le token dans l'en-tête
                 'Content-Type': 'application/json',
+                'Authorization':  `Bearer ${token}` , // Ajouter le token dans l'en-tête
             },
         })
             .then((response) => {
@@ -29,7 +36,7 @@ const Quiz: React.FC = () => {
                 generateQuiz(data);
             })
             .catch((error) => console.error('Erreur:', error));
-    }, []);
+    }, [token]);
 
     const generateQuiz = (words: { _id: string; frenchWord: string; englishWord: string }[]) => {
         const shuffledWords = words.sort(() => 0.5 - Math.random()).slice(0, 5);
@@ -57,7 +64,8 @@ const Quiz: React.FC = () => {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
     };
 
-    return (
+    return (<>
+       <Header/>
         <div>
             <h1>Quiz de Mots</h1>
             {currentQuestionIndex < quiz.length ? (
@@ -77,6 +85,7 @@ const Quiz: React.FC = () => {
                 </div>
             )}
         </div>
+        </>
     );
 };
 

@@ -1,79 +1,17 @@
-// // frontend/src/components/LoginForm.tsx
-// import React, { useState } from 'react';
-
-// const LoginForm: React.FC = () => {
-//     const [email, setEmail] = useState('');
-//     const [password, setPassword] = useState('');
-//     const [message, setMessage] = useState('');
-
-//     const handleSubmit = (e: React.FormEvent) => {
-//         e.preventDefault();
-//         const userCredentials = { email, password };
-
-//         fetch('http://localhost:5000/api/users/login', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(userCredentials),
-//         })
-//             .then((response) => {
-//                 if (!response.ok) {
-//                     throw new Error('Erreur lors de la connexion');
-//                 }
-//                 return response.json();
-//             })
-//             .then((data) => {
-//                 // Stocker le token dans le localStorage
-//                 localStorage.setItem('token', data.token);
-//                 setMessage(`Connecté en tant que : ${data.user.username}`);
-//                 // Réinitialiser les champs du formulaire
-//                 setEmail('');
-//                 setPassword('');
-//             })
-//             .catch((error) => {
-//                 setMessage(error.message);
-//             });
-//     };
-
-//     return (
-//         <form onSubmit={handleSubmit}>
-//             <h2>Connexion</h2>
-//             <input
-//                 type="email"
-//                 placeholder="Email"
-//                 value={email}
-//                 onChange={(e) => setEmail(e.target.value)}
-//                 required
-//             />
-//             <input
-//                 type="password"
-//                 placeholder="Mot de passe"
-//                 value={password}
-//                 onChange={(e) => setPassword(e.target.value)}
-//                 required
-//             />
-//             <button type="submit">Se connecter</button>
-//             {message && <p>{message}</p>}
-//         </form>
-//     );
-// };
-
-// export default LoginForm;
-// frontend/src/components/LoginForm.tsx
-
-
 import React, { useState } from 'react';
-import isLogin from '../utils/Utils';
-import AddWordForm from './AddWordForm';
+import { useNavigate } from 'react-router-dom';
+import AddUserForm from './AddUserForm';
 
-const LoginForm: React.FC = () => {
+interface LoginFormProps {
+    onLogin: (token: string) => void; // Ajouter une prop pour gérer la connexion
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({onLogin}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const[token,setToken]=useState<string|null>(null);
-
+     const navigate = useNavigate();
+   
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const userCredentials = { email, password };
@@ -95,24 +33,12 @@ const LoginForm: React.FC = () => {
              
             // Stocker le token dans le localStorage
             localStorage.setItem('token', data.token);
-            setToken(data.token);
-            // localStorage.setItem('username', data.user.username)
-            console.log("voici les infos du user:",data.token, data.user.username)
-            setToken(data.token);
-            setMessage(`Bonjour : ${data.user.username},jai bien ton token":${data.token}`);
-
-            // Réinitialiser les champs du formulaire
+            onLogin(data.token); // Appeler la fonction pour mettre à jour l'état d'authentification
+            setMessage(`Bonjour : ${data.user.username}, vous êtes connecté.`);
+            navigate('/add-word'); // Rediriger après la connexion
             setEmail('');
             setPassword('');
-            setIsAuthenticated(true);
-        //     if (isLogin()) {
-        //         console.log("L'utilisateur est connecté.");
-                
-        //     } else {
-        //         console.log("L'utilisateur n'est pas connecté.");
-        //     }
-             
-        //    ;
+       
         } catch (error) {
             if (error instanceof Error) {
                 setMessage(error.message); // Type d'erreur sécurisé
@@ -121,37 +47,36 @@ const LoginForm: React.FC = () => {
             }
         }
     };
-    // Afficher AddWordForm si l'utilisateur est connecté
-    if (isAuthenticated) {
-        return <AddWordForm token={token!} />; // Passer le token en tant que prop
-    }
-
-
+   
     return (
+        <>
         <form onSubmit={handleSubmit}>
-            <h2>Connexion</h2>
+            <h2>Bienvenue ! Veuillez vous connecter ou vous enregistrer.</h2>
+            <h3>Connexion</h3>
             <input
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
-            />
+                required />
             <input
                 type="password"
                 placeholder="Mot de passe"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
-            />
+                required />
             <button type="submit">Se connecter</button>
             {message && <p>{message}</p>} {/* Afficher un message de retour */}
-            
+
         </form>
+        <AddUserForm />
+        </>
     );
 };
 
 export default LoginForm;
+
+
 
 
 

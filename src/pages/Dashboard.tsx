@@ -1,21 +1,25 @@
 // frontend/src/components/Dashboard.tsx
 import React, { useEffect, useState } from 'react';
 
-const Dashboard: React.FC = () => {
+interface DashboardProps {
+    token: string; // Prop pour le token
+}
+
+const Dashboard:  React.FC<DashboardProps> = ({ token }) => {
     const [wordCount, setWordCount] = useState(0);
     const [testCount, setTestCount] = useState(0);
     const [quizCount, setQuizCount] = useState(0);
     const [knownWordsCount, setKnownWordsCount] = useState(0);
 
     useEffect(() => {
-        const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur
+       // const token = localStorage.getItem('token'); // Récupérer le token de l'utilisateur
 
         // Récupérer le nombre de mots dans le dictionnaire
         fetch('http://localhost:5000/api/words', {
             method: 'GET',
             headers: {
-                'Authorization': token ? `Bearer ${token}` : '', // Ajouter le token dans l'en-tête
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` , // Ajouter le token dans l'en-tête
             },
         })
             .then((response) => {
@@ -32,7 +36,7 @@ const Dashboard: React.FC = () => {
         setTestCount(5);  // Remplacer par la logique pour récupérer les tests effectués
         setQuizCount(3);  // Remplacer par la logique pour récupérer les quiz complétés
         setKnownWordsCount(10); // Remplacer par la logique pour récupérer les mots connus
-    }, []);
+    }, [token]);
 
     return (
         <div>

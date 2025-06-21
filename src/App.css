@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; 
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem;*/
   text-align: center;
 }
 
@@ -12,7 +12,7 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #10157daa);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
@@ -39,4 +39,34 @@
 
 .read-the-docs {
   color: #888;
+}*/
+
+header {
+    background-color: #22a532; /* Couleur de fond du header */
+    padding: 20px; /* Espacement interne */
+    color:white;
+    text-align: left; /* Centrer le texte */
+}
+
+.navBar {
+      display: flex; /* Utiliser Flexbox pour aligner les éléments horizontalement */
+    justify-content: center; /* Centrer les éléments horizontalement */
+    list-style-type: none; /* Supprimer les puces de la liste */
+    padding: 0; /* Supprimer le padding par défaut */
+    margin: 0; /* Supprimer la marge par défaut */
+}
+
+.navBar li {
+    margin: 0 15px; /* Espacement entre les éléments de la liste */
+}
+
+.navBar a {
+    color: white; /* Couleur des liens */
+    text-decoration: none; /* Supprimer le soulignement */
+    font-weight: bold; /* Mettre le texte en gras */
+    transition: color 0.3s; 
+}
+
+.navBar a:hover {
+    color: #18b118; /* Couleur des liens au survol */
 }
