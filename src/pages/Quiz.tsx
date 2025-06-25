@@ -1,6 +1,7 @@
 // // frontend/src/pages/Quiz.tsx
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 
 
 interface QuizProps {
@@ -65,7 +66,8 @@ const Quiz: React.FC<QuizProps> = ({ token }) => {
     };
 
     return (<>
-       <Header/>
+        <Header/>
+        <Navbar/>
         <div>
             <h1>Quiz de Mots</h1>
             {currentQuestionIndex < quiz.length ? (

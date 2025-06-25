@@ -1,6 +1,7 @@
 // frontend/src/pages/WordList.tsx
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 interface WordListProps {
     token: string; // Prop pour le token
 }
@@ -81,7 +82,10 @@ const WordList: React.FC<WordListProps> = ({ token }) => {
     };
 
     return (
-        <><Header /><div>
+        <>
+        <Header/>
+        <Navbar/>
+        <div>
             <h1>Liste de Mots</h1>
             <ul>
                 {words.map((word) => (
@@ -112,7 +116,8 @@ const WordList: React.FC<WordListProps> = ({ token }) => {
                     <button onClick={() => setEditingWord(null)}>Annuler</button>
                 </form>
             )}
-        </div></>
+        </div>
+        </>
     );
 };
 

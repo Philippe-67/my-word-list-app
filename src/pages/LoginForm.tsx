@@ -10,7 +10,7 @@ const LoginForm: React.FC<LoginFormProps> = ({onLogin}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-     const navigate = useNavigate();
+    const navigate = useNavigate();
    
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -69,7 +69,7 @@ const LoginForm: React.FC<LoginFormProps> = ({onLogin}) => {
             {message && <p>{message}</p>} {/* Afficher un message de retour */}
 
         </form>
-        <AddUserForm />
+        {/* <AddUserForm /> */}
         </>
     );
 };

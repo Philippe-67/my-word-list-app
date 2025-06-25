@@ -1,6 +1,7 @@
 // frontend/src/components/TypingTest.tsx
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 interface TypingTestProps {
     token: string; // Prop pour le token
 }
@@ -53,7 +54,10 @@ const TypingTest: React.FC<TypingTestProps> = ({ token }) => {
     };
 
     return (
-        <><Header /><div>
+        <>
+        <Header/>
+        <Navbar/>
+        <div>
             <h1>Test de Saisie</h1>
             {currentWord && (
                 <div>
@@ -70,7 +74,8 @@ const TypingTest: React.FC<TypingTestProps> = ({ token }) => {
                     {result && <p>{result}</p>}
                 </div>
             )}
-        </div></>
+        </div>
+        </>
     );
 };
 

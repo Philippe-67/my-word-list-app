@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 
 interface AddWordFormProps {
     token: string; // Prop pour le token
@@ -45,7 +46,10 @@ const AddWordForm: React.FC<AddWordFormProps> = ({ token }) => {
 
     return (
         <>
-        <Header/>
+         <Header/> 
+         <Navbar onSelect={function (component: string): void {
+                throw new Error('Function not implemented.');
+            } }/>
         <form onSubmit={handleSubmit}>
             <h1>Ajout de mot(s)</h1>
             <input
@@ -63,7 +67,7 @@ const AddWordForm: React.FC<AddWordFormProps> = ({ token }) => {
             <button type="submit">Ajouter le mot</button>
             {message && <p>{message}</p>} {/* Afficher un message de retour */}
         </form>
-        <Footer/>
+     <Footer/> 
         </>
     );
 };

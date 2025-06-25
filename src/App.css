@@ -1,72 +1,51 @@
-#root {
-  /* max-width: 1280px; 
-  margin: 0 auto;
-  padding: 2rem;*/
-  text-align: center;
+
+.body{
+   margin: 0; /* Supprime les marges par défaut */
+    padding: 0; /* Supprime le padding par défaut */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #10157daa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}*/
 
 header {
+
+    width: 100vw; 
     background-color: #22a532; /* Couleur de fond du header */
     padding: 20px; /* Espacement interne */
     color:white;
-    text-align: left; /* Centrer le texte */
+    text-align: center; /* Centrer le texte */
+   
+}
+.headerTitle{
+  margin: 0;
+    color:white;
+    
+
+ 
 }
 
-.navBar {
-      display: flex; /* Utiliser Flexbox pour aligner les éléments horizontalement */
-    justify-content: center; /* Centrer les éléments horizontalement */
-    list-style-type: none; /* Supprimer les puces de la liste */
-    padding: 0; /* Supprimer le padding par défaut */
-    margin: 0; /* Supprimer la marge par défaut */
+.navbar {
+  background-color: #22a535; 
+ 
+}
+.navbar ul{
+   display: flex;
+   justify-content: center;
+   
 }
 
-.navBar li {
-    margin: 0 15px; /* Espacement entre les éléments de la liste */
+.navbar li {
+    margin: 0 15px; 
+    list-style-type: none;
+    
 }
 
-.navBar a {
+.navbar a {
     color: white; /* Couleur des liens */
     text-decoration: none; /* Supprimer le soulignement */
     font-weight: bold; /* Mettre le texte en gras */
     transition: color 0.3s; 
+    
 }
 
-.navBar a:hover {
-    color: #18b118; /* Couleur des liens au survol */
+.navbar a:hover {
+    color: #2a18b1; /* Couleur des liens au survol */
 }

@@ -1,5 +1,7 @@
 // frontend/src/components/Dashboard.tsx
 import React, { useEffect, useState } from 'react';
+import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 
 interface DashboardProps {
     token: string; // Prop pour le token
@@ -39,6 +41,9 @@ const Dashboard:  React.FC<DashboardProps> = ({ token }) => {
     }, [token]);
 
     return (
+        <>
+        <Header/>
+        <Navbar/>
         <div>
             <h1>Tableau de Bord</h1>
             <p>Nombre de mots dans votre dictionnaire : {wordCount}</p>
@@ -46,6 +51,7 @@ const Dashboard:  React.FC<DashboardProps> = ({ token }) => {
             <p>Nombre de quiz complétés : {quizCount}</p>
             <p>Nombre de mots que vous semblez connaître : {knownWordsCount}</p>
         </div>
+        </>
     );
 };
 
