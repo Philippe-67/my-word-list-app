@@ -21,10 +21,7 @@ const addUser = async (req, res) => {
 
         const savedUser = await newUser.save();
         
-        // Créer un token JWT
-        const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(201).json({ token, user: { username: savedUser.username, email: savedUser.email } });
-        console.log("Le token créé :", token);
+       
     } catch (error) {
         console.error('Erreur lors de l\'ajout de l\'utilisateur:', error);
         res.status(500).json({ message: 'Erreur interne du serveur' });

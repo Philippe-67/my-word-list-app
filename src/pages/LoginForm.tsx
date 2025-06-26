@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddUserForm from './AddUserForm';
 
+
 interface LoginFormProps {
     onLogin: (token: string) => void; // Ajouter une prop pour gérer la connexion
 }
@@ -69,7 +70,7 @@ const LoginForm: React.FC<LoginFormProps> = ({onLogin}) => {
             {message && <p>{message}</p>} {/* Afficher un message de retour */}
 
         </form>
-        {/* <AddUserForm /> */}
+         <AddUserForm /> 
         </>
     );
 };

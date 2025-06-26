@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 interface DashboardProps {
     token: string; // Prop pour le token
@@ -51,6 +52,7 @@ const Dashboard:  React.FC<DashboardProps> = ({ token }) => {
             <p>Nombre de quiz complétés : {quizCount}</p>
             <p>Nombre de mots que vous semblez connaître : {knownWordsCount}</p>
         </div>
+        <Footer/>
         </>
     );
 };

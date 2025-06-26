@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 
 interface QuizProps {
@@ -87,6 +88,7 @@ const Quiz: React.FC<QuizProps> = ({ token }) => {
                 </div>
             )}
         </div>
+        <Footer/>
         </>
     );
 };

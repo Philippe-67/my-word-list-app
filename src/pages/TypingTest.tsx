@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 interface TypingTestProps {
     token: string; // Prop pour le token
 }
@@ -75,6 +76,7 @@ const TypingTest: React.FC<TypingTestProps> = ({ token }) => {
                 </div>
             )}
         </div>
+        <Footer/>
         </>
     );
 };

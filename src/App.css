@@ -49,3 +49,11 @@ header {
 .navbar a:hover {
     color: #2a18b1; /* Couleur des liens au survol */
 }
+
+footer {
+    width: 100vw; 
+    background-color: #22a532; /* Couleur de fond du header */
+    padding: 2px; /* Espacement interne */
+    color:white;
+    text-align: center; /* Centrer le texte */
+}

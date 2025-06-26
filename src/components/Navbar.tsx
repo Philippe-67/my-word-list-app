@@ -27,6 +27,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './../App.css';
+import ButtonDeconexion from '../utilsComponents/DeconexionButton';
 
 const Navbar: React.FC = () => {
     const navigate = useNavigate();
@@ -40,6 +41,7 @@ const Navbar: React.FC = () => {
                 <li onClick={() => navigate('/add-word')}>Add Word</li>
                 <li onClick={() => navigate('/')}>Word List</li>
                 {/* Ajoutez d'autres éléments si besoin */}
+                 <ButtonDeconexion/>
             </ul>
         </nav>
     );

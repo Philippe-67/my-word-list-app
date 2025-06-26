@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 interface WordListProps {
     token: string; // Prop pour le token
 }
@@ -117,6 +118,7 @@ const WordList: React.FC<WordListProps> = ({ token }) => {
                 </form>
             )}
         </div>
+        <Footer/>
         </>
     );
 };
