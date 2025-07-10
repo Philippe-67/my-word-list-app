@@ -84,16 +84,18 @@ const WordList: React.FC<WordListProps> = ({ token }) => {
 
     return (
         <>
-        <Header/>
-        <Navbar/>
         <div>
+            <Header/>
+            <Navbar/>
+        </div>
+        <div className='container'>
             <h1>Liste de Mots</h1>
             <ul>
                 {words.map((word) => (
                     <li key={word._id}>
-                        {word.frenchWord} - {word.englishWord}
-                        <button onClick={() => handleEdit(word)}>Modifier</button>
-                        <button onClick={() => handleDelete(word._id)}>Supprimer</button>
+                        <span><em>{word.frenchWord}</em> - <strong>{word.englishWord}</strong></span>
+                        <button type='button' onClick={() => handleEdit(word)}>Modifier</button>
+                        <button type='button' onClick={() => handleDelete(word._id)}>Supprimer</button>
                     </li>
                 ))}
             </ul>

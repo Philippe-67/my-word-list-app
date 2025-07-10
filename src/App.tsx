@@ -20,11 +20,11 @@ const App: React.FC = () => {
        
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token'); // Supprime le token du localStorage
-        setToken(null);
-        setIsAuthenticated(false);
-    };
+    // const handleLogout = () => {
+    //     localStorage.removeItem('token'); // Supprime le token du localStorage
+    //     setToken(null);
+    //     setIsAuthenticated(false);
+    // };
 
     return (
         <Router>
@@ -38,7 +38,7 @@ const App: React.FC = () => {
                     <Route path="/quiz" element={isAuthenticated ? <Quiz token={token!} /> : <LoginForm onLogin={handleLogin} />} />
                     <Route path="/typingTest" element={isAuthenticated ? <TypingTest token={token!} /> : <LoginForm onLogin={handleLogin} />} /> {/* Ajout de la route pour Quiz */}
                 </Routes>
-                {isAuthenticated && <button onClick={handleLogout}>Déconnexion</button>}
+                {/* {isAuthenticated && <button onClick={handleLogout}>Déconnexion</button>} */}
             </div>
         </Router>
     );

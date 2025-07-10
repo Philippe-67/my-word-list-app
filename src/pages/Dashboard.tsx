@@ -1,8 +1,9 @@
 // frontend/src/components/Dashboard.tsx
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
+//import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ButtonDeconexion from '../utilsComponents/DeconexionButton';
 
 interface DashboardProps {
     token: string; // Prop pour le token
@@ -42,20 +43,23 @@ const Dashboard:  React.FC<DashboardProps> = ({ token }) => {
     }, [token]);
 
     return (
-        <>
-        <Header/>
-        <Navbar/>
-        <div>
-            <h1>Tableau de Bord</h1>
-            <p>Nombre de mots dans votre dictionnaire : {wordCount}</p>
-            <p>Nombre de tests effectués : {testCount}</p>
-            <p>Nombre de quiz complétés : {quizCount}</p>
-            <p>Nombre de mots que vous semblez connaître : {knownWordsCount}</p>
-        </div>
-        <Footer/>
-        </>
+        
+        <><>
+            <Navbar />
+            <div>
+                <h3>Tableau de Bord</h3>
+                <p>Nombre de mots dans votre dictionnaire : {wordCount}</p>
+                <p>Nombre de tests effectués : {testCount}</p>
+                <p>Nombre de quiz complétés : {quizCount}</p>
+                <p>Nombre de mots que vous semblez connaître : {knownWordsCount}</p>
+            </div>
+            <Footer />
+        </><>
+                <ButtonDeconexion />
+            </></>
     );
 };
 
 export default Dashboard;
 
+//

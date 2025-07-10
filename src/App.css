@@ -1,59 +1,150 @@
-
-.body{
-   margin: 0; /* Supprime les marges par défaut */
-    padding: 0; /* Supprime le padding par défaut */
+/* Styles généraux */
+body {
+    display: flex; /* Utiliser Flexbox pour le corps */
+    flex-direction: column; /* Orientation en colonne */
+    align-items: center; /* Centre les éléments horizontalement */
+    justify-content: center; /* Centre les éléments verticalement */
+    min-height: 100vh; /* Assure que le corps prend toute la hauteur de la fenêtre */
+    margin: 0; /* Supprime les marges par défaut */
+    border-radius: 25px;
 }
 
-
+/* Styles pour l'en-tête */
 header {
-
-    width: 100vw; 
-    background-color: #22a532; /* Couleur de fond du header */
-    padding: 20px; /* Espacement interne */
-    color:white;
-    text-align: center; /* Centrer le texte */
-   
-}
-.headerTitle{
-  margin: 0;
-    color:white;
-    
-
- 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #004080; /* Bleu foncé pour l'en-tête */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    z-index: 1000; /* Assure que l'en-tête soit au-dessus des autres éléments */
 }
 
+/* Titre de l'en-tête */
+.headerTitle {
+    margin: 10;
+    color: white;
+}
+
+/* Styles pour la barre de navigation */
 .navbar {
-  background-color: #22a535; 
- 
+    position: fixed;
+    top: 145px; /* Positionné juste en dessous de l'en-tête */
+    left: 0;
+    width: 100%;
+    background-color: #00509E; /* Bleu moyen pour la barre de navigation */
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    z-index: 999; /* Assure que la barre de navigation soit au-dessus du contenu */
 }
-.navbar ul{
-   display: flex;
-   justify-content: center;
-   
+
+.navbar ul {
+    display: flex;
+    justify-content: center;
 }
 
 .navbar li {
-    margin: 0 15px; 
+    margin: 0 15px;
     list-style-type: none;
-    
 }
 
 .navbar a {
     color: white; /* Couleur des liens */
     text-decoration: none; /* Supprimer le soulignement */
     font-weight: bold; /* Mettre le texte en gras */
-    transition: color 0.3s; 
-    
+    transition: color 0.3s;
 }
 
 .navbar a:hover {
-    color: #2a18b1; /* Couleur des liens au survol */
+    color: #A7C6ED; /* Couleur des liens au survol en bleu pastel */
 }
 
+/* Styles pour le pied de page */
 footer {
-    width: 100vw; 
-    background-color: #22a532; /* Couleur de fond du header */
-    padding: 2px; /* Espacement interne */
-    color:white;
-    text-align: center; /* Centrer le texte */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #004080; /* Bleu foncé pour le footer */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    z-index: 1000; /* Assure que le pied de page soit au-dessus des autres éléments */
+}
+
+/* Styles pour le conteneur principal */
+.container {
+    color: #004080;
+    display: flex; /* Utiliser Flexbox pour aligner les éléments côte à côte */
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: flex-start; /* Aligne les éléments en haut */
+    padding: 150px; /* Espacement interne pour le conteneur */
+    background-color: #E0F7FA; /* Fond du container en bleu clair */
+    max-width: 800px; /* Limiter la largeur du conteneur si nécessaire */
+    width: 100%; /* Prendre toute la largeur disponible */
+    box-sizing: border-box;
+    margin-top: 165px;
+    border-radius: 20px;
+}
+
+/* Styles pour le contenu principal */
+.main {
+    color: #004080;
+    max-width: 800px; /* Limite la largeur du contenu principal */
+    background-color: #FFFFFF; /* Fond de la section principale en blanc */
+    padding: 20px; /* Ajouter un peu d'espacement interne */
+    border-radius:14px;
+}
+
+/* Styles pour l'aside */
+aside {
+    width: 300px; /* Largeur fixe pour l'aside, ajustez selon vos besoins */
+    margin-left: 20px; /* Espacement entre le composant principal et l'aside */
+}
+
+/* Styles pour les inputs */
+input {
+    background-color: #FFFFFF; /* Fond blanc pour les inputs */
+    color: #003366; /* Texte bleu foncé */
+    border: 1px solid #00509E; /* Bordure en bleu moyen */
+    border-radius: 4px; /* Coins arrondis pour un meilleur aspect */
+    padding: 10px; /* Espacement interne */
+    margin: 10px 0; /* Espacement vertical entre les inputs */
+    width: calc(100% - 22px); /* Ajustement de la largeur pour éviter le débordement */
+}
+
+input::placeholder {
+    color: #A7C6ED; /* Couleur des placeholders en bleu pastel */
+}
+
+/* Styles pour les boutons */
+button {
+    background-color: #00509E; /* Fond bleu moyen pour le bouton */
+    color: white; /* Texte blanc pour le bouton */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Coins arrondis */
+    padding: 10px 15px; /* Espacement interne */
+    cursor: pointer; /* Curseur en main au survol */
+    transition: background-color 0.3s; /* Transition pour le changement de couleur */
+}
+
+button:hover {
+    background-color: #00334d; /* Changement de couleur au survol */
+}
+
+.star {
+    color: gray; /* Couleur par défaut des étoiles */
+    font-size: 30px; /* Taille des étoiles */
+    margin-right: 5px; /* Espacement entre les étoiles */
+}
+
+.star.filled {
+    color: #FFD700; /* Couleur dorée pour les étoiles colorées */
+}
+
+.star.incorrect {
+    color: red; /* Couleur rouge pour les étoiles en cas de réponse incorrecte */
 }
