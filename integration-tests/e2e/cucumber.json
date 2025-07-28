@@ -1,0 +1,13 @@
+{
+  "default": {
+    
+     "require": ["steps/**/*.ts"],
+    "dryRun": false,
+    "format": ["progress-bar"],
+    "formatOptions": {
+      "snippetInterface": "async-await"
+    },
+    "requireModule": ["ts-node/register"],
+     "timeout": 30000  
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "main": "index.js",
+ "scripts": {
+  "test": "cucumber-js --config ./cucumber.json",
+  "test:ci": "cross-env BROWSER_HEADLESS=1 cucumber-js src/tests/features --parallel 6 --exit",
+  "generate:tests": "npx playwright codegen http://localhost:5173"
+},
+
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.1.0",
+    "@playwright/test": "^1.54.1",
+    "@types/cucumber": "^7.0.0",
+    "@types/node": "^20.14.9",
+    "cross-env": "^7.0.3",
+    "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "date-fns": "^3.6.0",
+    "typescript": "^5.6.2"
+  }
+}
