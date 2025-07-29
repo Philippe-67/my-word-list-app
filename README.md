@@ -52,3 +52,26 @@ export default tseslint.config({
   },
 })
 ```
+## Lancement du projet
+
+### front / backend  / tests
+
+1.  **Lancer le frontend**:
+
+    cd ..\\..\\..\my-word-list-app-1\  
+    npm install  
+      npm run dev 
+
+2.  **Lancer le Backend**:
+
+    cd ..\\..\\..\my-word-list-app-1\backend  
+      node server.js
+
+3.  **Lancer les tests**:
+
+    cd ..\\..\\..\integration-tests\e2e  
+      npm run test  
+      
+      npm run generate:tests   
+
+
