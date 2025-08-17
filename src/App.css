@@ -135,13 +135,16 @@ button:hover {
     background-color: #00334d; /* Changement de couleur au survol */
 }
 
-.star {
-    color: gray; /* Couleur par défaut des étoiles */
+.star{
+    color: green; /* Couleur par défaut des étoiles */
     font-size: 30px; /* Taille des étoiles */
     margin-right: 5px; /* Espacement entre les étoiles */
 }
+ .star.filled {
+    color: #FFD700; /* Couleur dorée pour les étoiles colorées */
+} 
 
-.star.filled {
+.star.correct {
     color: #FFD700; /* Couleur dorée pour les étoiles colorées */
 }
 

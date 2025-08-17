@@ -45,8 +45,12 @@ const Quiz: React.FC<QuizProps> = ({ token }) => {
         })
         .finally(() => setLoading(false));
     }, [token]);
+      if (!loading && quiz.length === 0) {
+    return <div>Pas de questions disponibles.</div>;
+  }
 
     const generateQuiz = (words: { _id: string; frenchWord: string; englishWord: string }[]) => {
+          if (words.length === 0) return;
         const shuffledWords = words.sort(() => 0.5 - Math.random()).slice(0, 5);
         const quizQuestions = shuffledWords.map(word => {
             const options = [word.englishWord];
@@ -56,6 +60,7 @@ const Quiz: React.FC<QuizProps> = ({ token }) => {
                     options.push(randomWord);
                 }
             }
+            
             return {
                 frenchWord: word.frenchWord,
                 correctAnswer: word.englishWord,
@@ -111,6 +116,9 @@ const Quiz: React.FC<QuizProps> = ({ token }) => {
             setError('Erreur lors de la récupération des mots.');
         })
         .finally(() => setLoading(false));
+  
+  
+  
     };
 
     return (
