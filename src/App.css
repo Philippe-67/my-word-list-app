@@ -136,7 +136,7 @@ button:hover {
 }
 
 .star{
-    color: green; /* Couleur par défaut des étoiles */
+    color: grey; /* Couleur par défaut des étoiles */
     font-size: 30px; /* Taille des étoiles */
     margin-right: 5px; /* Espacement entre les étoiles */
 }
@@ -149,5 +149,5 @@ button:hover {
 }
 
 .star.incorrect {
-    color: red; /* Couleur rouge pour les étoiles en cas de réponse incorrecte */
+    color: rgb(250, 106, 106); /* Couleur rouge pour les étoiles en cas de réponse incorrecte */
 }
