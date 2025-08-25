@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Word } from './useQuestions';
-
+//import type { Word } from '../types/types';
+//import { Word } from './useQuestions';
+interface Word {
+  _id: string;
+  frenchWord: string;
+  englishWord: string;
+  categoryWord:string
+}
 interface UseTypingTestProps {
   questions: Word[];
   onFinish?: () => void;
@@ -56,7 +62,9 @@ export const useTypingTest = ({ questions, onFinish }: UseTypingTestProps) => {
     setScore(0);
     setTestFinished(false);
      setUserAnswer(''); // Ajoutez cette ligne pour réinitialiser l'input
-    
+    setTimeout(() => {
+    setNewWord();
+  }, 100);
   };
 
   return {
@@ -70,4 +78,7 @@ export const useTypingTest = ({ questions, onFinish }: UseTypingTestProps) => {
     score,
   };
 };
+function setNewWord() {
+    throw new Error('Function not implemented.');
+}
 

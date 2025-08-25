@@ -24,10 +24,15 @@ const AddUserForm: React.FC = () => {
                 if (!response.ok) {
                     throw new Error('Erreur lors de l\'ajout de l\'utilisateur');
                 }
+                
                 return response.json();
             })
             .then((data) => {
-                setMessage(`Utilisateur ajouté : ${data.user.username}`);
+               
+              
+                    setMessage(`Utilisateur ajouté `);
+               
+                
                 // Réinitialiser les champs du formulaire
                 setUsername('');
                 setPassword('');

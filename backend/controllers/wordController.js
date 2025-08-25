@@ -3,10 +3,11 @@ const WordList = require('../models/WordList');
 
 // Fonction pour ajouter un mot
 const addWord = async (req, res) => {
-    const { frenchWord, englishWord } = req.body;
+    const { frenchWord, englishWord,categoryWord } = req.body;
     const userId = req.user.id; // Assurez-vous que l'utilisateur est authentifié
     console.log(`l'utilisateur connecté est :`, userId);
-    const newWord = new WordList({ userId, frenchWord, englishWord }); // Inclure l'ID de l'utilisateur
+    const newWord = new WordList({ userId, frenchWord, englishWord,categoryWord }); // Inclure l'ID de l'utilisateur
+    console.log(`nouveau mot :`, newWord);
     try {
         const savedWord = await newWord.save();
         res.status(201).json(savedWord);

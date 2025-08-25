@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-interface Word {
+export interface Word {
   _id: string;
   frenchWord: string;
   englishWord: string;

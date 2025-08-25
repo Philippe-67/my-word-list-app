@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import { useQuestions } from '../hooks/useQuestions';
 import { useStars } from '../hooks/useStars';
 //import { useTypingTest } from '../hooks/useTypingTest';
@@ -13,6 +14,7 @@ interface Word {
   _id: string;
   frenchWord: string;
   englishWord: string;
+  categoryWord:string
 }
 
 interface TypingTestProps {
@@ -82,6 +84,7 @@ const TypingTest: React.FC<TypingTestProps> = ({ token }) => {
                   required
                   style={{ padding: '8px', width: '70%', fontSize: '16px' }}
                 />
+
                 <button type="submit" style={{ padding: '8px 16px', marginLeft: '10px' }}>
                   Vérifier
                 </button>

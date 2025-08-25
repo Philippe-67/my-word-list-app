@@ -81,7 +81,7 @@
 // };
 
 // export default AddWordForm;
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
@@ -93,12 +93,14 @@ interface AddWordFormProps {
 const AddWordForm: React.FC<AddWordFormProps> = ({ token }) => {
     const [frenchWord, setFrenchWord] = useState('');
     const [englishWord, setEnglishWord] = useState('');
+    const [categoryWord, setCategoryWord] = useState('');
     const [message, setMessage] = useState('');
     const [pencils, setPencils] = useState(0); // État pour les crayons
 
+    const frenchInputRef = useRef<HTMLInputElement>(null);
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const newWord = { frenchWord, englishWord };
+        const newWord = { frenchWord, englishWord, categoryWord };
 
         try {
             const response = await fetch('http://localhost:5000/api/words/add-word', {
@@ -118,7 +120,13 @@ const AddWordForm: React.FC<AddWordFormProps> = ({ token }) => {
             setMessage('Mot ajouté avec succès');
             setFrenchWord('');
             setEnglishWord('');
+            setCategoryWord('');
             setPencils(pencils + 1); // Ajouter un crayon à chaque mot ajouté
+         // Donner le focus au champ français après soumission
+            if (frenchInputRef.current) {
+                frenchInputRef.current.focus();
+            }
+        
         } catch (error) {
             setMessage('Une erreur est survenue lors de l\'ajout du mot.');
             console.error('Erreur:', error);
@@ -138,12 +146,20 @@ const AddWordForm: React.FC<AddWordFormProps> = ({ token }) => {
                             placeholder="Mot en français"
                             value={frenchWord}
                             onChange={(e) => setFrenchWord(e.target.value)}
-                            required />
+                            required 
+                              ref={frenchInputRef} // Attacher la ref ici/*
+                              />
                         <input
                             type="text"
                             placeholder="Mot en anglais"
                             value={englishWord}
                             onChange={(e) => setEnglishWord(e.target.value)}
+                            required />
+                         <input
+                            type="text"
+                            placeholder="Categorie"
+                            value={categoryWord}
+                            onChange={(e) => setCategoryWord(e.target.value)}
                             required />
                         <button type="submit">Ajouter le mot</button>
                         {message && <p>{message}</p>}

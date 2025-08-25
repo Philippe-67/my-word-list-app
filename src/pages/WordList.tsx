@@ -7,10 +7,11 @@ interface WordListProps {
     token: string; // Prop pour le token
 }
 const WordList: React.FC<WordListProps> = ({ token }) => {
-    const [words, setWords] = useState<{ _id: string; frenchWord: string; englishWord: string }[]>([]);
-    const [editingWord, setEditingWord] = useState<{ _id: string; frenchWord: string; englishWord: string } | null>(null);
+    const [words, setWords] = useState<{ _id: string; frenchWord: string; englishWord: string, categoryWord:string }[]>([]);
+    const [editingWord, setEditingWord] = useState<{ _id: string; frenchWord: string; englishWord: string, categoryWord:string} | null>(null);
     const [frenchWord, setFrenchWord] = useState('');
     const [englishWord, setEnglishWord] = useState('');
+    const [categoryWord, setCategoryWord] = useState('');
 
     useEffect(() => {
          const token = localStorage.getItem('token'); // Récupère le token de l'utilisateur
@@ -31,10 +32,11 @@ const WordList: React.FC<WordListProps> = ({ token }) => {
             .then((data) => setWords(data))
             .catch((error) => console.error('Erreur:', error));
     }, [token]);
-     const handleEdit = (word: { _id: string; frenchWord: string; englishWord: string }) => {
+     const handleEdit = (word: { _id: string; frenchWord: string; englishWord: string;categoryWord: string }) => {
         setEditingWord(word);
         setFrenchWord(word.frenchWord);
         setEnglishWord(word.englishWord);
+        setCategoryWord(word.categoryWord);
     };
 
       const handleUpdate = (e: React.FormEvent) => {
@@ -48,7 +50,7 @@ const WordList: React.FC<WordListProps> = ({ token }) => {
                     'Authorization':  `Bearer ${token}` ,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ frenchWord, englishWord }),
+                body: JSON.stringify({ frenchWord, englishWord, categoryWord }),
             })
                 .then((response) => {
                     if (!response.ok) {
@@ -61,6 +63,7 @@ const WordList: React.FC<WordListProps> = ({ token }) => {
                     setEditingWord(null);
                     setFrenchWord('');
                     setEnglishWord('');
+                    setCategoryWord('');
                 })
                 .catch((error) => console.error('Erreur:', error));
         }
@@ -93,7 +96,7 @@ const WordList: React.FC<WordListProps> = ({ token }) => {
             <ul>
                 {words.map((word) => (
                     <li key={word._id}>
-                        <span><em>{word.frenchWord}</em> - <strong>{word.englishWord}</strong></span>
+                        <span><em>{word.frenchWord}</em> - <strong>{word.englishWord}</strong>-<em>{word.categoryWord}</em></span>
                         <button type='button' onClick={() => handleEdit(word)}>Modifier</button>
                         <button type='button' onClick={() => handleDelete(word._id)}>Supprimer</button>
                     </li>
@@ -114,6 +117,12 @@ const WordList: React.FC<WordListProps> = ({ token }) => {
                         placeholder="Mot en anglais"
                         value={englishWord}
                         onChange={(e) => setEnglishWord(e.target.value)}
+                        required />
+                    <input
+                        type="text"
+                        placeholder="Catégorie"
+                        value={categoryWord}
+                        onChange={(e) => setCategoryWord(e.target.value)}
                         required />
                     <button type="submit">Mettre à Jour</button>
                     <button onClick={() => setEditingWord(null)}>Annuler</button>
