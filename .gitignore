@@ -32,4 +32,5 @@ build/            # Si tu utilises un dossier de build
 *.njsproj
 *.sln
 *.sw?
+# package-lock.json
 
